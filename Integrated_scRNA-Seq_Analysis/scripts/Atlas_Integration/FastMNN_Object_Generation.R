@@ -1,33 +1,10 @@
 ### Author: Matthew Aaron Loberg
 ### Date: August 19, 2024
-### Script: 24-0819_FastMNN_Object_Generation.R
+### Script: FastMNN_Object_Generation.R
 
 # Goal: Merge all data sets with annotations (but excluding SCTransformed data) in preparation for running FastMNN on the data
 
 # FastMNN guide: https://htmlpreview.github.io/?https://github.com/satijalab/seurat-wrappers/blob/master/docs/fast_mnn.html
-
-### 23-1127 Update ###
-# Running with new PTCs from Pu et al. (LNs, SCs, paratumors)
-
-### 24-0131 Update ###
-# Running WITHOUT PTC10T From Pu et al.
-# See lab notebook entry for today for more details on why
-# I will start without Han samples so that I am NOT changing too much too quickly
-# I will secondarily add the Han samples back in and see if they integrate appropriately
-
-### 24-0209 Update ###
-# I will still leave Pu et al PTC10T OUT
-# I am adding in Wang et al. samples (6 PTC + 1 normal)
-# I will attempt to fix the "Identifier/orig.ident problem in a more efficient manner"
-# I am still considering whether to add Han et al. samples
-# Right now all of the samples that I am including are 10X Genomics processed samples
-# Han et al. is NOT 10X Genomics; further, the meta data on Han et al. makes it really hard to determine what it is
-
-### 24-0701 Update ###
-# I am redoing my thyroid atlas
-# I am removing Gao et al. samples (these are duplicate samples of 5 of the Lu et al. 2023 ATC samples)
-# I am adding in Lee et al. 2024 samples (malignant + normal)
-# I am adding in Han et al. 2024 samples (4 ATCs)
 
 ### 24-0721 Update ###
 # Attempting with a new object order:
@@ -39,7 +16,7 @@
 # Han36
 # Han37
 # Lee_AT13 (lots of fibroblasts, small # of tumor)
-# Lee_AT16 (lots of fibroblasts but confusing)
+# Lee_AT16 (lots of fibroblasts)
 # Lu ATC11
 # Han34
 # Lee AT17 (weird)
@@ -80,14 +57,6 @@ library(SeuratDisk)
 
 ##### Load readdirs for SCTransformed Seurat Objects #####
 Readdirs <- list(
-  # Gao Samples - REMOVING GAO ET AL SAMPLES
-  # NOTE THIS WILL CHANGE THE INTEGRATION ORDER, WHICH MAY CAUSE PROBLEMS
-  # WOULD IT MAKE SENSE TO HAVE AN ATC FIRST??? OR A MIXED PTC ATC FIRST???
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Gao_etal_2021_CopyKAT_ATC_scRNA/Processed_Data/Individual_Samples/ATC_1/23-1108_SCTransformed.h5Seurat",
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Gao_etal_2021_CopyKAT_ATC_scRNA/Processed_Data/Individual_Samples/ATC_2/23-1108_SCTransformed.h5Seurat",
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Gao_etal_2021_CopyKAT_ATC_scRNA/Processed_Data/Individual_Samples/ATC_3/23-1108_SCTransformed.h5Seurat",
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Gao_etal_2021_CopyKAT_ATC_scRNA/Processed_Data/Individual_Samples/ATC_4/23-1108_SCTransformed.h5Seurat",
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Gao_etal_2021_CopyKAT_ATC_scRNA/Processed_Data/Individual_Samples/ATC_5/23-1108_SCTransformed.h5Seurat",
 
   # Ordered Samples
   # To replicate this analysis, it is IMPERATIVE that the sample order remains the same
@@ -192,11 +161,6 @@ Readdirs <- list(
   "~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Wang_etal_2022_PTC_scRNA/Processed_Data/Individual_Samples/Wang_T3R/24-0201_SCTransformed.h5Seurat",
   "~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Wang_etal_2022_PTC_scRNA/Processed_Data/Individual_Samples/Wang_NT/24-0201_SCTransformed.h5Seurat"
 
-  # Han Samples (not including)
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Han_etal_2020_Normal_scRNA/Processed_Data/Thyroid_1/23-1031_SCTransformed.h5Seurat",
-  #"~/2023_Integrated_scRNA-Seq_Analysis/data_in_use/Han_etal_2020_Normal_scRNA/Processed_Data/Thyroid_2/23-1031_SCTransformed.h5Seurat"
-
-
 )
 
 ##### Create a list of Seurat objects to merge from the 83 readdirs #####
@@ -217,7 +181,6 @@ rm(Readdirs, i)
 
 ##### Add Identifier here for eventual FastMNN #####
 # Identifier ONLY exists for Luo paper samples ... I will add it to all of the other paper objects
-# This is a modification to how I did it on 24-0131 (which took hours)
 # Identifier exists to deal with the problem of some of the Luo tumors being split into multiple samples
 # "Identifier" is essentially orig.ident with an additional identifier added to tumors that had multiple samples
 # The orig.ident for these is set to be identical
