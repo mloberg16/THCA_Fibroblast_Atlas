@@ -50,6 +50,8 @@ Link to paper: https://www.frontiersin.org/journals/immunology/articles/10.3389/
 Link to GEO webpage: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE191288  
 Link to paper GitHub: https://github.com/shenglei1988/scRNAseq-bilateral-PTC
 
+-----------------------------------------------------
+
 ### Visium Data
 
 Will be made available on the Human Tumor Atlas Netowrk (HTAN):  
