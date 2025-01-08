@@ -1,5 +1,5 @@
 ### Author: Matthew Aaron Loberg
-### Date: September 30, 2024
+### Date: November 4, 2024
 ### Script: 24-1104_RCTD_Reference_Builder.R
 
 ##### Goal: #####
@@ -8,12 +8,13 @@
 # This version will also include a split of PTC into PTC and pEMT-PTC groups
 
 #### Reference/Updates from previous #####
-# This is an update of 24-0212 and 23-1207 RCTD scripts
+# This is an update of 24-0930, 24-0212, and 23-1207 RCTD scripts
 # I am running these with an updated atlas from the prior reference builder scripts
 # This is with the 24-0819 atlas integration
+# 24-0930 was run with the most recent atlas but without stromal subclusters
+# In this 24-1104 update, I am including stromal subclusters (myCAF, iCAF, APOE+ PVL, pericyte, vSMC)
 # I am running this on the ATLAS EXCLUDING iCAF2 (largely from one sample)
 # I think that the exclusion of iCAF2 will give the best marker genes for iCAF
-# I am also including stromal subclusters (myCAF, iCAF, APOE+ PVL, pericyte, vSMC)
 
 #### 24-1104 Update ####
 # Building a NEW reference with pEMT included
