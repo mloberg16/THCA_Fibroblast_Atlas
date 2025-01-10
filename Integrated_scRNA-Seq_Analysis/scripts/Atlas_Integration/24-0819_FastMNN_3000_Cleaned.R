@@ -33,50 +33,16 @@
 # The following downloads the most recent version of Seurat Wrappers:
 # remotes::install_github('satijalab/seurat-wrappers')
 
-# I am selecting to update Seurat (I may need to downgrade it again in the future to use Seurat Disc)
-
-### 24-0202 Update ###
-# This is a 24-0202 adaptation of the 23-1128 script "23-1128_FastMNN.R"
-# In this script, I will be performing FastMNN WITHOUT PTC10 From Pu (without the primary tumor sample)
-# To do this, I will load in "24-0131_Merged_SOs_scRNA_for_FastMNN.RDS"
-# This is 59 different objects from 57 different tumors that will be used for FastMNN
-
-### 24-0210 Update ###
-# This is the 24-0210 adaptation of the 24-0202 script "24-0202_FastMNN.R"
-# In this script, I will be performing FastMNN with additional Wang et al. samples
-# TO do this, I will load in "24-0209_Merged_SOs_scRNA_for_FastMNN.RDS"
-# This is from 66 different objects from 64 different tumors that will be used for FastMNN
-
-### 24-0702 Update ###
-# This is the 24-0702 adaptation of the 24-0221 script "24-0221_FastMNN.R" (24-0210 object)
-# In this iteration, I have EXCLUDED the samples from Gao et al. (CopyKAT paper), as I now know that these samples are duplicated in the Lu et al. 2023 JCI paper
-# I have added several additional samples, including the following:
-# 4 BRAF mutant ATCs from Han et al. 2024 JCI Insight
-# 5 ATCs (no meta data) from Lee et al. 2024
-# 7 PTCs (no meta data) from Lee et al. 2024
-# 7 "normal" thyroid samples (minimal meta data or information, separate GEO from tumor samples) from Lee et al. 2024
-
-### 24-0502 Update ###
-# This is the 24-0705 update
-# Switching to 3000 features to see if that will work better for separating tumor and fibroblast
-
-### 24-0722 Update ###
-# Using 24-0721 Integration Object
-
-### 24-0818 Update ###
-# New integration with new QC for >= 500 nCount RNA
-
-### 24-0819 Update ###
-# New integration for FastMNN with Lu_ATC_LJ C-Cells excluded from the analysis
-
-### 24-1009 Update ###
-# Cleaning this script for Hua-Chang to just the very basic FastMNN integration + a few plots of interest
-
+##### LOAD REQUIED PACKAGES #####
 library(Seurat)
 library(SeuratWrappers)
 library(tidyverse) # for ggsave
 library(RColorBrewer) # for custom plot coloring
 library(beepr)
+
+##### LOAD DATA FOR INTEGRATION #####
+# Load previously generated Merged single-cell object
+# See script: FastMNN_Object_Generation.R for merging of single-cell objects
 Merged_SO <- readRDS(file = "~/24-0819_Merged_SOs_scRNA_for_FastMNN.RDS")
 
 ##### Run FastMNN #####
