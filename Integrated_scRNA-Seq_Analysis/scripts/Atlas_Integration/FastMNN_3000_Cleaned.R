@@ -1,6 +1,6 @@
 #### Author: Matthew Aaron Loberg
 #### Date: August 19, 2024
-#### Script: "24-0819_FastMNN_3000.R"
+#### Script: "FastMNN_3000_Cleaned.R"
 
 # Goal: Integrate scRNA-Seq data sets using Fast MNN
 
@@ -142,7 +142,7 @@ Idents(Merged_SO_FastMNN) <- Merged_SO_FastMNN$Paper
 levels(Idents(Merged_SO_FastMNN))
 Merged_SO_FastMNN$Paper_Simplified <- Idents(Merged_SO_FastMNN)
 levels(Merged_SO_FastMNN$Paper_Simplified)
-levels(Merged_SO_FastMNN$Paper_Simplified) <- c("Lee", "Han", "Lu", "Luo", "Pu", "Lee", "Wang")
+levels(Merged_SO_FastMNN$Paper_Simplified) <- c("Hong", "Han", "Lu", "Luo", "Pu", "Lee", "Wang")
 levels(Merged_SO_FastMNN$Paper_Simplified)
 # Save "Paper_Simplified" DimPlot
 ggsave(file.path(savedir, "Paper_Simplified.png"),
