@@ -1,7 +1,11 @@
 # Author: Matthew A. Loberg
 # Date: November 29th, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+# Script: Thy2_Processing_Raw_SCTransform.R
+# Source Script Name: 22-1129_Thy2_Processing_Raw_SCTransform.R
+
+# Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
 
 # Thy2
 
@@ -17,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy2 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy2 data
-data_dir <- 'Data_in_Use/2021_JHU_Data/Thy2' # Set directory to load from
+data_dir <- 'Data_in_Use/Thy2' # Set directory to load from
 Thy2 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy2
 Thy2$orig.ident <- "Thy2"
 # Cleaning up
@@ -53,8 +57,8 @@ ggsave("outputs/Thy2_QC/22-1129_Thy2_Processing_Raw_SCTransform/22-1129_Raw_Coun
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy2 as an RDS
-saveRDS(Thy2, "Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_Raw_PreProcessed.rds")
+# Save raw Thy2 Seurat Object as an RDS
+saveRDS(Thy2, "Data_in_Use/Thy2_Processed/22-1129_Thy2_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -63,10 +67,14 @@ saveRDS(Thy2, "Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_Raw_PreProc
 # There are many discussions on whether return.only.var.genes should be set to TRUE/FALSE.
 # In the vignette from satijalab, they recommend FALSE for best performance. 
 # I need to do more reading to see how this affects addModuleScore and other commands
-Thy2 <- SCTransform(Thy2, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
+Thy2 <- SCTransform(Thy2, 
+                    vst.flavor = "v2",
+                    assay = "Spatial", 
+                    return.only.var.genes = FALSE, 
+                    verbose = FALSE)
 
 # Save SCTransformed Thy2 as an RDS
-saveRDS(Thy2, "Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_SCTransformed_All_Genes.rds")
+saveRDS(Thy2, "Data_in_Use/Thy2_Processed/22-1129_Thy2_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy2)
