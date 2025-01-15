@@ -1,5 +1,8 @@
-# Author: Matthew A. Loberg
-# Date: November 4, 2024
+### Author: Matthew A. Loberg
+### Date: November 4, 2024
+### Script: Peds_Samples_Seurat_PreProcessing.R
+### Source Script Name: 24-1104_Peds_Samples_Seurat_PreProcessing.R
+
 # Purpose: New pediatric Visium sequencing data just obtained from Vantage
 # Here, I will read the data into R studio and begin basic processing of the data + save as .RDS
 
