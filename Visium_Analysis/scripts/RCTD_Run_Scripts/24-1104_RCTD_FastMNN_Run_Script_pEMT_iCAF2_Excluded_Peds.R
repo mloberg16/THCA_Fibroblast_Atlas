@@ -1,6 +1,6 @@
 ### Author: Matthew Aaron Loberg
 ### Date: November 4, 2024
-### Script: 24-1104_RCTD_FastMNN_Run_Script.R
+### Script: 24-1104_RCTD_FastMNN_Run_Script_pEMT_iCAF2_Excluded_Peds.R
 
 #### Goal: ####
 # Run The RCTD_Processing function for ALL Thy objects
