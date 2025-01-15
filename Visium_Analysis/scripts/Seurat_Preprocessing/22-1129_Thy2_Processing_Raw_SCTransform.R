@@ -1,0 +1,75 @@
+# Author: Matthew A. Loberg
+# Date: November 29th, 2022
+# Purpose: New Visium sequencing data just obtained from Vantage
+# Here, I will read the data into R studio and begin basic processing of the data
+
+# Thy2
+
+#### Chapter 1: Loading Packages ####
+# Load required packages
+library(Seurat)
+library(hdf5r) # required to read in data file
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+library(tidyverse)
+
+#### Chapter 2: Reading in Thy2 and looking at raw count data by violin and SpatialFeaturePlot ####
+
+# Load in Thy2 data
+data_dir <- 'Data_in_Use/2021_JHU_Data/Thy2' # Set directory to load from
+Thy2 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy2
+Thy2$orig.ident <- "Thy2"
+# Cleaning up
+rm(data_dir)
+
+
+# Visualize raw count data as a violin plot. Note, 'raster = FALSE' for image quality
+plot1 <- VlnPlot(Thy2, features = "nCount_Spatial", raster = FALSE) + NoLegend()
+
+# Visiualize spatial location of raw count data
+plot2 <- SpatialFeaturePlot(Thy2, features = "nCount_Spatial") + theme(legend.position = "right")
+
+# Visiualize spatial location and violin plot on the same graph 
+test <- wrap_plots(plot1, plot2)
+
+# Format plot1 and plot2
+plot1 <- plot1 + 
+  theme(
+    axis.text = element_text(face = "bold", size = 15)
+  )
+ggsave("outputs/Thy2_QC/22-1129_Thy2_Processing_Raw_SCTransform/22-1129_Raw_Counts_Violin.png",
+       plot1,
+       width = 4, height = 5, dpi = 600)
+
+plot2 <- plot2 + theme(
+  legend.text = element_text(face = "bold", size = 15),
+  legend.title = element_text(face = "bold", size = 15)
+)
+ggsave("outputs/Thy2_QC/22-1129_Thy2_Processing_Raw_SCTransform/22-1129_Raw_Counts_Spatial.png",
+       plot2,
+       width = 7, height = 5, dpi = 600)
+
+# Cleaning up
+rm(plot1, plot2, test)
+
+# Save raw Thy2 as an RDS
+saveRDS(Thy2, "Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_Raw_PreProcessed.rds")
+
+#### Chapter 3: Data Transformation ####
+# I will perform data transformation with SCTransform
+# See SCTransform vignette here: https://satijalab.org/seurat/articles/sctransform_vignette.html
+# See SCTransform paper here: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1
+# There are many discussions on whether return.only.var.genes should be set to TRUE/FALSE.
+# In the vignette from satijalab, they recommend FALSE for best performance. 
+# I need to do more reading to see how this affects addModuleScore and other commands
+Thy2 <- SCTransform(Thy2, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
+
+# Save SCTransformed Thy2 as an RDS
+saveRDS(Thy2, "Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_SCTransformed_All_Genes.rds")
+
+# Cleaning up
+rm(Thy2)
+
+# I will start subsequent analysis by loading the SCTransformed/processed version of Thy2
+
