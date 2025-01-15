@@ -1,7 +1,7 @@
 # THCA Fibroblast Atlas
 This GitHub contains scripts for analyses in the paper, "An integrated single-cell and spatial transcriptomic atlas of thyroid cancer progression identifies prognostic fibroblast subpopulations". 
 
-The paper is currently available online as a pre-print: [https://www.biorxiv.org/content/10.1101/2025.01.08.631962v1]
+The paper is currently available online as a pre-print: https://www.biorxiv.org/content/10.1101/2025.01.08.631962v1
 
 ## Data Access
 ### Public Single-Cell RNA-Sequencing RAW data access
