@@ -1,6 +1,7 @@
 # Author: Matthew Aaron Loberg
 # Date: November 23, 2024
-# Script: 24-1123_Visium_Distance_Matrix_Calculations.R
+# Script: Visium_Distance_Matrix_Calculations.R
+# Source Script Name: 24-1123_Visium_Distance_Matrix_Calculations.R
 
 # Credit to Andres Ocampo for help in developing this distance matrix code 
 
