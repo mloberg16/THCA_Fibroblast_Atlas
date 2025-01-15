@@ -1,6 +1,7 @@
-# Author: Matthew Aaron Loberg
-# Date: December 02, 2024
-# Script: 24-1202_PTC_ATC_myCAF_Distance_Calculations_Mixed_BRAF_Tumors_Only.R
+### Author: Matthew Aaron Loberg
+### Date: December 02, 2024
+### Script: PTC_ATC_myCAF_Distance_Calculations_Mixed_BRAF_Tumors_Only.R
+### Source Script Name: 24-1202_PTC_ATC_myCAF_Distance_Calculations_Mixed_BRAF_Tumors_Only.R
 
 # Goal:
 # Calculate distance between ATC regions and myCAFs and PTC regions and myCAFs in tumors with BRAFV600E and mixed PTC/ATC morphologies
