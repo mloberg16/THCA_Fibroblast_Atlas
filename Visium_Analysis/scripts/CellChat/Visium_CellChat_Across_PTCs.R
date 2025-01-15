@@ -1,21 +1,28 @@
 # Author: Matthew Aaron Loberg
-# Date: November 18, 2024
-# Script: 24-1118_RCTD_Plot_Script.R
+# Date: December 8, 2024
+# Script: CellChat_Across_PTCs.R
+# Source Script Name: 24-1208_CellChat_Across_PTCs.R
 
-# Goal: Load in 24-1104 Seurat objects with RCTD meta data
-# Run any plots of interest
+# Goal: Run CellChat across PTC Visium samples that have PTC, pEMT-PTC, and myCAF populations to infer L-R interactions with spatial info
 
-# Came to a realization that if I am NOT working with pEMT, I hould be using the 1001 deconvolution object
+# More info: 
+# CellChat requires each individual visium capture area (barcode) to be labeled as one cell type
+# This breaks the assumption/the reality that each capture area actually contains a mix of cell types
+# However, it can still be used to infer spatial L-R interactions
+# The way I will do this is to label each individual barcode based on the cell population (by RCTD deconvolution) that contributes the most to the composition of the spot 
+# I will do this for all of the PTCs
+# I will only proceed with CellChat analysis on the PTCs that have at least 10 spots with PTC AND pEMT-PTC
 
-# V3 - Peds analysis of myCAF-iCAF, PTC-myCAF, PTC-iCAF, iCAF-B cells )peds + everything really)
+# Sample info: 
+# The PTCs are Peds01 - Peds08 (pediatric samples) and Thy7, Thy15 - Thy18 (adult samples)
 
-##### Load Packages #####
+##### Load Packages For Pre-Processing #####
 library(Seurat)
 library(tidyverse)
 library(patchwork) # required to wrap plots in SpatialFeaturePlotBlend
 
 # Peds01
-Peds01 <- readRDS(file = "Data_in_Use/Pre_Processed_with_RCTD_Annotations/24-1104_iCAF2_Excluded/Peds01.RDS")
+Peds01 <- readRDS(file = "Data_in_Use/Pre_Processed_with_RCTD_Annotations/24-1104_iCAF2_Excluded/Peds01.RDS") # Read in Seurat object containing RCTD deconvolved percents as meta data
 pt.size.factor <- 1.65
 outputdir <- "outputs/Peds01_RCTD/24-1104_iCAF2_Excluded/RCTD_SpatialFeature/"
 meta_data <- Peds01@meta.data[,c("APOE_CAF_RCTD",
@@ -34,14 +41,16 @@ meta_data <- Peds01@meta.data[,c("APOE_CAF_RCTD",
                                  "PTC_RCTD",
                                  "Thyrocyte_RCTD")]
 
-# for each barcode, define a max
+# for each barcode, define a max cell population
 max_column <- apply(meta_data, 1, function(x) colnames(meta_data)[which.max(x)])
 
-# Add this as a new metadata column
+# Add this as a new metadata column to the seurat object
 Peds01$max_meta_column <- max_column
 
+# View a table of the cell populations that compose the max
 table(Peds01$max_meta_column)
 
+# Custom colors for plotting
 cols <- c("APOE_CAF_RCTD" = "#426600", 
           "B_Cell_RCTD" = "#993F00",
           "dPVCAF_RCTD" = "#990000",
@@ -57,7 +66,7 @@ cols <- c("APOE_CAF_RCTD" = "#426600",
           "PTC_RCTD" = "#FFCC99",
           "Thyrocyte_RCTD" = "lightgrey")
 
-
+# Save a spatial plot with the barcodes colored based on which cell type is contributing the most to the composition of the barcode
 ggsave(file.path(outputdir, "24-1208_max_meta_column.png"),
        SpatialDimPlot(Peds01, 
                       group.by = "max_meta_column", 
@@ -965,13 +974,14 @@ rm(meta_data, max_column, pt.size.factor, Thy18, max_column, cols, outputdir)
 
 
 
-# Cell Chat analysis
-# The following three lines are from the CellChat tutorial
+################### Cell Chat analysis ########################
+# See CellChat Tutorial - was used to write this code
+### Load Required Packages
 library(CellChat)
 library(patchwork)
 options(stringsAsFactors = FALSE)
 
-# Create a list of Cell_Chat_SOs
+# Create a list of Cell_Chat_SOs (These are the Seurat Objects that contained PTC and pEMT-PTC popluations)
 Cell_Chat_SOs <- list(Peds04_CellChat_Subset, 
                       Peds08_CellChat_Subset,
                       Thy7_CellChat_Subset,
