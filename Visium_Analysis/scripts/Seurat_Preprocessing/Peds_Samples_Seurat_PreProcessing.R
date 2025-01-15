@@ -15,9 +15,9 @@ library(dplyr)
 library(patchwork)
 library(tidyverse)
 
-#### Chapter 2: Reading in Thy1 and looking at raw count data by violin and SpatialFeaturePlot ####
+#### Chapter 2: Reading in Peds samples and looking at raw count data by violin and SpatialFeaturePlot ####
 
-# Load in Thy1 data
+# Load in a list of pediatric sample data directories for processing as a list
 data_dir <- c('Data_in_Use/Belcher_Peds_Visium/Raw_SpaceRanger_Outputs/count_11133-CP-0001_v2',
               'Data_in_Use/Belcher_Peds_Visium/Raw_SpaceRanger_Outputs/count_11133-CP-0002_v2',
               'Data_in_Use/Belcher_Peds_Visium/Raw_SpaceRanger_Outputs/count_11133-CP-0003_v2',
@@ -65,7 +65,7 @@ for(i in 1:length(Spatial_SOs)){
   saveRDS(Spatial_SOs[[i]], paste0("Data_in_Use/Belcher_Peds_Visium/Processed/Peds0", i, "v2/24-1104_Peds0", i, "_Raw_PreProcessed.rds"))
 }
 
-### Chapter 3: Celaning up 
+### Chapter 3: Cleaning up 
 rm(list = ls())
 
 ### Chapter 4: Session Info 
