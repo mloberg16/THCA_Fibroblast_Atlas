@@ -5,6 +5,9 @@
 #### Goal: ####
 # Run The RCTD_Processing function for ALL Thy objects
 # Peds objects included
+# This 24-1104 iteration INCLUDES a pEMT-PTC grouping in the atlas (as well as stromal subclusters of myCAF, iCAF, APOE+ PVL, pericyte, vSMC)
+# TODAY I AM RUNNING FOR JUST THY16
+# The alignment for Thy16 was off - we repeated with a version of Thy16 that is manually aligned
 
 #### 24-1001 Updates ####
 # Including pt.size.factor variable that is a list of 20 values; different value for each sample that I previously determined
@@ -17,7 +20,7 @@
 # Include plots with the NEW pEMT object for each sample
 
 #### Thy16 Update ####
-# Rerunning this script for Thy16 with the new sample from Lana
+# Rerunning this script for Thy16 with the new sample from Lana Olson after she ran Manual Align
 
 #### Load required packages ####
 library(spacexr)
@@ -52,7 +55,7 @@ readdirs <- list(
                  #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy13_Processed/22-0915_Thy13_Raw_PreProcessed.rds",
                  #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy14_Processed/22-1129_Thy14_Raw_PreProcessed.rds",
                  #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy15_Processed/22-1129_Thy15_Raw_PreProcessed.rds",
-                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy16_Processed/24-1121_Thy16_Raw_PreProcessed.rds"
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy16_Processed/24-1121_Thy16_Raw_PreProcessed.rds" # Only running Thy16 today - commenting out others
                  #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy17_Processed/22-1129_Thy17_Raw_PreProcessed.rds",
                  #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy18_Processed/22-1129_Thy18_Raw_PreProcessed.rds",
                  #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy19_Processed/22-1129_Thy19_Raw_PreProcessed.rds",
@@ -68,8 +71,7 @@ readdirs <- list(
                  )
 
 # Create a list length 20 of the pt.size.factors to use for the objects
-# This is a 24-1001 addition after the pt.size.factors being WAY off
-pt.size.factor <- list(1.6)
+pt.size.factor <- list(1.6) # Thy16 pt.size.factor
 
 # Create save directory
 dir.create("Data_in_Use/Pre_Processed_with_RCTD_Annotations/24-1104_iCAF2_Excluded")
