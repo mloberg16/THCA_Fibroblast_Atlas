@@ -34,6 +34,15 @@ Paper GitHub for single-cell analysis: https://github.com/syparkmd/thyroid_cance
 Paper Zenodo for single-cell analysis: https://zenodo.org/records/10392309  
 Link to GEO webpage for thyroid TUMOR samples: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232237  
 Link to GEO webpage for thyroid NORMAL samples: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE182416  
+- Note: These normal samples are used in Lee et al., but they are actually from Hong et al. (see below)
+
+-----------------------------------------------------
+
+**Hong et al. 2024 *Endocrinology* data set:**  
+
+Link to paper: 
+https://academic.oup.com/endo/article/164/4/bqad029/7040488  
+Link to GEO webpage for thyroid NORMAL samples: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE182416  
 
 -----------------------------------------------------
 
