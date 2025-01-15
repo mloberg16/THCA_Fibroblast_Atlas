@@ -1,10 +1,10 @@
 ### Author: Matthew Aaron Loberg
 ### Date: November 4, 2024
-### Script: 24-1104_RCTD_FastMNN_Run_Script.R
+### Script: 24-1104_RCTD_FastMNN_Run_Script_pEMT_iCAF2_Excluded.R
 
 #### Goal: ####
 # Run The RCTD_Processing function for ALL Thy objects
-# Peds objects included
+# Peds objects included on separate script ("24-1104_RCTD_FastMNN_Run_Script_pEMT_iCAF2_Excluded_Peds.R")
 
 #### 24-1001 Updates ####
 # Including pt.size.factor variable that is a list of 20 values; different value for each sample that I previously determined
@@ -34,34 +34,34 @@ reference <- readRDS(file = "~/24-1104_FastMNN_RCTD_Reference_iCAF2_Excluded.RDS
 
 #### Load in readdirs ####
 readdirs <- list(
-                 #"Data_in_Use/2021_JHU_Data/Thy1_Processed/22-0913_Thy1_Raw_PreProcessed.rds",
-                 #"Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_Raw_PreProcessed.rds",
-                 #"Data_in_Use/2021_JHU_Data/Thy3_Processed/22-1129_Thy3_Raw_PreProcessed.rds",
-                 #"Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy5_Processed/22-0825_Thy5_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy6_Processed/22-0915_Thy6_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy7_Processed/22-1122_Thy7_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy8_Processed/22-1122_Thy8_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy10_Processed/22-0915_Thy10_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy11_Processed/22-0905_Thy11_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy12_Processed/22-0915_Thy12_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy13_Processed/22-0915_Thy13_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy14_Processed/22-1129_Thy14_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy15_Processed/22-1129_Thy15_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy16_Processed/22-1129_Thy16_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy17_Processed/22-1129_Thy17_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy18_Processed/22-1129_Thy18_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy19_Processed/22-1129_Thy19_Raw_PreProcessed.rds",
-                 #"Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy20_Processed/22-1129_Thy20_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds01v2/24-1104_Peds01_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds02v2/24-1104_Peds02_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds03v2/24-1104_Peds03_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds04v2/24-1104_Peds04_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds05v2/24-1104_Peds05_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds06v2/24-1104_Peds06_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds07v2/24-1104_Peds07_Raw_PreProcessed.rds",
-                 "Data_in_Use/Belcher_Peds_Visium/Processed/Peds08v2/24-1104_Peds08_Raw_PreProcessed.rds"
+                 "Data_in_Use/2021_JHU_Data/Thy1_Processed/22-0913_Thy1_Raw_PreProcessed.rds",
+                 "Data_in_Use/2021_JHU_Data/Thy2_Processed/22-1129_Thy2_Raw_PreProcessed.rds",
+                 "Data_in_Use/2021_JHU_Data/Thy3_Processed/22-1129_Thy3_Raw_PreProcessed.rds",
+                 "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy5_Processed/22-0825_Thy5_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy6_Processed/22-0915_Thy6_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy7_Processed/22-1122_Thy7_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy8_Processed/22-1122_Thy8_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy10_Processed/22-0915_Thy10_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy11_Processed/22-0905_Thy11_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy12_Processed/22-0915_Thy12_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy13_Processed/22-0915_Thy13_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy14_Processed/22-1129_Thy14_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy15_Processed/22-1129_Thy15_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy16_Processed/22-1129_Thy16_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy17_Processed/22-1129_Thy17_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy18_Processed/22-1129_Thy18_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy19_Processed/22-1129_Thy19_Raw_PreProcessed.rds",
+                 "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy20_Processed/22-1129_Thy20_Raw_PreProcessed.rds"
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds01v2/24-1104_Peds01_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds02v2/24-1104_Peds02_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds03v2/24-1104_Peds03_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds04v2/24-1104_Peds04_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds05v2/24-1104_Peds05_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds06v2/24-1104_Peds06_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds07v2/24-1104_Peds07_Raw_PreProcessed.rds",
+                 #"Data_in_Use/Belcher_Peds_Visium/Processed/Peds08v2/24-1104_Peds08_Raw_PreProcessed.rds"
                  )
 
 # Create a list length 20 of the pt.size.factors to use for the objects
