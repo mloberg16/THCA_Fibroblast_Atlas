@@ -21,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy2 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy2 data
-data_dir <- 'Data_in_Use/Thy2' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy2' # Set directory to load from
 Thy2 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy2
 Thy2$orig.ident <- "Thy2"
 # Cleaning up
