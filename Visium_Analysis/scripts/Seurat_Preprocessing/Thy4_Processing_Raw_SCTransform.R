@@ -58,7 +58,7 @@ ggsave("outputs/Thy4_QC/22-1129_Thy4_Processing_Raw_SCTransform/22-1129_Raw_Coun
 rm(plot1, plot2, test)
 
 # Save raw Thy4 Seurat Object as an RDS
-saveRDS(Thy4, "Data_in_Use/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds")
+saveRDS(Thy4, "Data_in_Use/Processed_Outputs/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -74,7 +74,7 @@ Thy4 <- SCTransform(Thy4,
                     verbose = FALSE)
 
 # Save SCTransformed Thy4 Seurat Object as an RDS
-saveRDS(Thy4, "Data_in_Use/Thy4_Processed/22-1129_Thy4_SCTransformed_All_Genes.rds")
+saveRDS(Thy4, "Data_in_Use/Processed_Outputs/Thy4_Processed/22-1129_Thy4_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy4)
