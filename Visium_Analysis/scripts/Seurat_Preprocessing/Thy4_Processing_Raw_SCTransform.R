@@ -21,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy4 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy4 data
-data_dir <- 'Data_in_Use/2021_JHU_Data/Thy4' # Set directory to load from
+data_dir <- 'Data_in_Use/Thy4' # Set directory to load from
 Thy4 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy4
 Thy4$orig.ident <- "Thy4"
 # Cleaning up
@@ -58,7 +58,7 @@ ggsave("outputs/Thy4_QC/22-1129_Thy4_Processing_Raw_SCTransform/22-1129_Raw_Coun
 rm(plot1, plot2, test)
 
 # Save raw Thy4 Seurat Object as an RDS
-saveRDS(Thy4, "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds")
+saveRDS(Thy4, "Data_in_Use/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -70,7 +70,7 @@ saveRDS(Thy4, "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_Raw_PreProc
 Thy4 <- SCTransform(Thy4, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
 # Save SCTransformed Thy4 Seurat Object as an RDS
-saveRDS(Thy4, "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_SCTransformed_All_Genes.rds")
+saveRDS(Thy4, "Data_in_Use/Thy4_Processed/22-1129_Thy4_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy4)
