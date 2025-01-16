@@ -21,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy6 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy6 data
-data_dir <- 'Data_in_Use/Thy6' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy6' # Set directory to load from
 Thy6 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy6
 Thy6$orig.ident <- "Thy6"
 # Cleaning up
@@ -68,7 +68,7 @@ ggsave("outputs/Thy6_QC/22-0915_Thy6_Processing_Raw_SCTransform/22-0915_Raw_Coun
 rm(plot1, plot2, test)
 
 # Save raw Thy6 Seurat Object as an RDS for future use (e.g., RCTD)
-saveRDS(Thy6, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy6_Processed/22-0915_Thy6_Raw_PreProcessed.rds")
+saveRDS(Thy6, "Data_in_Use/Processed_Outputs/Thy6_Processed/22-0915_Thy6_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -80,7 +80,7 @@ saveRDS(Thy6, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy6_Processed/22-0915
 Thy6 <- SCTransform(Thy6, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
 # Save SCTransformed Thy6 Seurat Object as an RDS for future use
-saveRDS(Thy6, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy6_Processed/22-0915_Thy6_SCTransformed_All_Genes.rds")
+saveRDS(Thy6, "Data_in_Use/Processed_Outputs/Thy6_Processed/22-0915_Thy6_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy6)
