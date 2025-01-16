@@ -1,7 +1,13 @@
-# Author: Matthew A. Loberg
-# Date: September 15th, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+### Author: Matthew A. Loberg
+### Date: September 15th, 2022
+### Script: Thy6_Processing_Raw_SCTransform.R
+### Source Script Name: 22-0915_Thy6_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
+
+# Thy6
 
 #### Chapter 1: Loading Packages ####
 # Load required packages
@@ -15,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy6 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy6 data
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/S18-19136_1F_Thy6' # Set directory to load from
+data_dir <- 'Data_in_Use/Thy6' # Set directory to load from
 Thy6 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy6
 Thy6$orig.ident <- "Thy6"
 # Cleaning up
@@ -61,7 +67,7 @@ ggsave("outputs/Thy6_QC/22-0915_Thy6_Processing_Raw_SCTransform/22-0915_Raw_Coun
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy6 as an RDS
+# Save raw Thy6 Seurat Object as an RDS for future use (e.g., RCTD)
 saveRDS(Thy6, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy6_Processed/22-0915_Thy6_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
@@ -73,7 +79,7 @@ saveRDS(Thy6, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy6_Processed/22-0915
 # I need to do more reading to see how this affects addModuleScore and other commands
 Thy6 <- SCTransform(Thy6, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
-# Save SCTransformed Thy6 as an RDS
+# Save SCTransformed Thy6 Seurat Object as an RDS for future use
 saveRDS(Thy6, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy6_Processed/22-0915_Thy6_SCTransformed_All_Genes.rds")
 
 # Cleaning up
