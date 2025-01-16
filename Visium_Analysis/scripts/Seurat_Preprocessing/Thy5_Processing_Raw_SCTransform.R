@@ -21,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy5 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy5 data
-data_dir <- 'Data_in_Use/Thy5' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy5' # Set directory to load from
 Thy5 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy5
 Thy5$orig.ident <- "Thy5"
 # Cleaning up
@@ -68,7 +68,7 @@ ggsave("outputs/Thy5_QC/22-0825_Thy5_Processing_Raw_SCTransform/22-0825_Raw_Coun
 rm(plot1, plot2, test)
 
 # Save raw Thy5 Seurat Object as an RDS
-saveRDS(Thy5, "Data_in_Use/Thy5_Processed/22-0825_Thy5_Raw_PreProcessed.rds")
+saveRDS(Thy5, "Data_in_Use/Processed_Outputs/Thy5_Processed/22-0825_Thy5_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -80,7 +80,7 @@ saveRDS(Thy5, "Data_in_Use/Thy5_Processed/22-0825_Thy5_Raw_PreProcessed.rds")
 Thy5 <- SCTransform(Thy5, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
 # Save SCTransformed Thy5 Suerat Object as an RDS
-saveRDS(Thy5, "Data_in_Use/Thy5_Processed/22-0825_Thy5_SCTransformed_All_Genes.rds")
+saveRDS(Thy5, "Data_in_Use/Processed_Outputs/Thy5_Processed/22-0825_Thy5_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy5)
