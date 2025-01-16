@@ -1,7 +1,13 @@
-# Author: Matthew A. Loberg
-# Date: November 22nd, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+### Author: Matthew A. Loberg
+### Date: November 22nd, 2022
+### Script: Thy8_Processing_Raw_SCTransform.R
+### Source Script Name: 22-1122_Thy8_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
+
+# Thy8
 
 #### Chapter 1: Loading Packages ####
 # Load required packages
@@ -15,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy8 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy8 data
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/Raw_SpaceRanger_Outputs/8405-CP-0004_S10-39588_8Q_Thy8' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy8' # Set directory to load from
 Thy8 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy8
 Thy8$orig.ident <- "Thy8"
 # Cleaning up
@@ -61,8 +67,8 @@ ggsave("outputs/Thy8_QC/22-1122_Thy8_Processing_Raw_SCTransform/22-1122_Raw_Coun
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy8 as an RDS
-saveRDS(Thy8, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy8_Processed/22-1122_Thy8_Raw_PreProcessed.rds")
+# Save raw Thy8 Seurat Object as an RDS
+saveRDS(Thy8, "Data_in_Use/Processed_Outputs/Thy8_Processed/22-1122_Thy8_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -75,10 +81,14 @@ saveRDS(Thy8, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy8
 # The scTransform is returning an error because one of my cells has no UMIs ... I need to filter out cells (spots) that have no UMIs before proceeding
 min(Thy8$nCount_Spatial) # Shows that there are spots with 0 counts
 Thy8 <- subset(Thy8, nCount_Spatial > 0) # Subset out only spots that have > 0 counts
-Thy8 <- SCTransform(Thy8, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE) # Now I can perform SCTransform without error
+Thy8 <- SCTransform(Thy8, 
+                    vst.flavor = "v2",
+                    assay = "Spatial", 
+                    return.only.var.genes = FALSE, 
+                    verbose = FALSE) # Now I can perform SCTransform without error
 
-# Save SCTransformed Thy8 as an RDS
-saveRDS(Thy8, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy8_Processed/22-1122_Thy8_SCTransformed_All_Genes.rds")
+# Save SCTransformed Thy8 Seurat Object as an RDS
+saveRDS(Thy8, "Data_in_Use/Processed_Outputs/Thy8_Processed/22-1122_Thy8_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy8)
