@@ -56,7 +56,7 @@ ggsave("outputs/Thy1_QC/22-0913_Thy1_Processing_Raw_SCTransform/22-0913_Raw_Coun
 rm(plot1, plot2, test)
 
 # Save raw Thy1 Seurat Object as an RDS (prior to SCTransform - just contains raw count data)
-saveRDS(Thy1, "Data_in_Use/Thy1_Processed/22-0913_Thy1_Raw_PreProcessed.rds")
+saveRDS(Thy1, "Data_in_Use/Processed_Outputs/Thy1_Processed/22-0913_Thy1_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -72,7 +72,7 @@ Thy1 <- SCTransform(Thy1,
                     verbose = FALSE)
 
 # Save SCTransformed Thy1 Seurat Object as an RDS for future use
-saveRDS(Thy1, "Data_in_Use/Thy1_Processed/22-0913_Thy1_SCTransformed_All_Genes.rds")
+saveRDS(Thy1, "Data_in_Use/Processed_Outputs/Thy1_Processed/22-0913_Thy1_SCTransformed_All_Genes.rds")
 
 # Just testing spatial feature plot
 SpatialFeaturePlot(Thy1, features = "TGFB1")
