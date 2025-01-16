@@ -19,7 +19,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy1 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy1 data
-data_dir <- 'Data_in_Use/Thy1' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy1' # Set directory to load from
 Thy1 <- Seurat::Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy1
 Thy1$orig.ident <- "Thy1"
 # Cleaning up
