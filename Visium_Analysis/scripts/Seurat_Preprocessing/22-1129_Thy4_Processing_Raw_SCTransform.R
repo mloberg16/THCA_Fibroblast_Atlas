@@ -1,7 +1,11 @@
 # Author: Matthew A. Loberg
 # Date: November 29th, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+# Script: Thy4_Processing_Raw_SCTransform.R
+# Source Script Name: 22-1129_Thy4_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
 
 # Thy4
 
@@ -53,7 +57,7 @@ ggsave("outputs/Thy4_QC/22-1129_Thy4_Processing_Raw_SCTransform/22-1129_Raw_Coun
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy4 as an RDS
+# Save raw Thy4 Seurat Object as an RDS
 saveRDS(Thy4, "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
@@ -65,7 +69,7 @@ saveRDS(Thy4, "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_Raw_PreProc
 # I need to do more reading to see how this affects addModuleScore and other commands
 Thy4 <- SCTransform(Thy4, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
-# Save SCTransformed Thy4 as an RDS
+# Save SCTransformed Thy4 Seurat Object as an RDS
 saveRDS(Thy4, "Data_in_Use/2021_JHU_Data/Thy4_Processed/22-1129_Thy4_SCTransformed_All_Genes.rds")
 
 # Cleaning up
