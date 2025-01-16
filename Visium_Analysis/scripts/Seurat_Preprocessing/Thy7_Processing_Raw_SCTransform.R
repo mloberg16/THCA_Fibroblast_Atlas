@@ -1,7 +1,13 @@
-# Author: Matthew A. Loberg
-# Date: November 22nd, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+### Author: Matthew A. Loberg
+### Date: November 22nd, 2022
+### Script: Thy7_Processing_Raw_SCTransform.R
+### Source Script Name: 22-1122_Thy7_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
+
+# Thy7
 
 #### Chapter 1: Loading Packages ####
 # Load required packages
@@ -15,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy7 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy7 data
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/Raw_SpaceRanger_Outputs/8405-CP-0003_S13-35682_2F_Thy7' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy7' # Set directory to load from
 Thy7 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy7
 Thy7$orig.ident <- "Thy7"
 # Cleaning up
@@ -61,8 +67,8 @@ ggsave("outputs/Thy7_QC/22-1122_Thy7_Processing_Raw_SCTransform/22-1122_Raw_Coun
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy7 as an RDS
-saveRDS(Thy7, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy7_Processed/22-1122_Thy7_Raw_PreProcessed.rds")
+# Save raw Thy7 Seurat Object as an RDS
+saveRDS(Thy7, "Data_in_Use/Processed_Outputs/Thy7_Processed/22-1122_Thy7_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -71,10 +77,14 @@ saveRDS(Thy7, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy7
 # There are many discussions on whether return.only.var.genes should be set to TRUE/FALSE.
 # In the vignette from satijalab, they recommend FALSE for best performance. 
 # I need to do more reading to see how this affects addModuleScore and other commands
-Thy7 <- SCTransform(Thy7, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
+Thy7 <- SCTransform(Thy7,
+                    vst.flavor = "v2",
+                    assay = "Spatial", 
+                    return.only.var.genes = FALSE, 
+                    verbose = FALSE)
 
-# Save SCTransformed Thy7 as an RDS
-saveRDS(Thy7, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy7_Processed/22-1122_Thy7_SCTransformed_All_Genes.rds")
+# Save SCTransformed Thy7 Seurat Object as an RDS
+saveRDS(Thy7, "Data_in_Use/Processed_Outputs/Thy7_Processed/22-1122_Thy7_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy7)
