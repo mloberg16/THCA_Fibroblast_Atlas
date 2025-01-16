@@ -67,7 +67,11 @@ saveRDS(Thy4, "Data_in_Use/Thy4_Processed/22-1129_Thy4_Raw_PreProcessed.rds")
 # There are many discussions on whether return.only.var.genes should be set to TRUE/FALSE.
 # In the vignette from satijalab, they recommend FALSE for best performance. 
 # I need to do more reading to see how this affects addModuleScore and other commands
-Thy4 <- SCTransform(Thy4, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
+Thy4 <- SCTransform(Thy4, 
+                    vst.flavor = "v2",
+                    assay = "Spatial", 
+                    return.only.var.genes = FALSE, 
+                    verbose = FALSE)
 
 # Save SCTransformed Thy4 Seurat Object as an RDS
 saveRDS(Thy4, "Data_in_Use/Thy4_Processed/22-1129_Thy4_SCTransformed_All_Genes.rds")
