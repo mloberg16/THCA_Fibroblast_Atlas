@@ -1,7 +1,13 @@
 # Author: Matthew A. Loberg
 # Date: October 3rd, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+# Script: Thy9_Manual_Processing_Raw_SCTransform.R
+# Source Script Name: 22-1003_Thy9_Manual_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
+
+# Thy9
 
 ## 22-1003 Update
 # SpaceRanger for Thy9 was reran by Lana Olson and uploaded on 22-1002
@@ -22,7 +28,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy9 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy9 data (new manual Alignment from Lana Olson as of 22-1002)
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/8405-CP-0005_S13-26846_6D_Thy9_manualAlignment' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy9_manualAlignment' # Set directory to load from
 Thy9 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy9
 Thy9$orig.ident <- "Thy9"
 # Cleaning up
@@ -68,8 +74,8 @@ ggsave("outputs/Thy9_QC/22-1003_Thy9_ManualAdjust_Processing_Raw_SCTransform/22-
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy9 as an RDS
-saveRDS(Thy9, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_Raw_PreProcessed.rds")
+# Save raw Thy9 Seurat Object as a .RDS
+saveRDS(Thy9, "Data_in_Use/Processed_Outputs/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -80,8 +86,8 @@ saveRDS(Thy9, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy9_ManualAlign_Proce
 # I need to do more reading to see how this affects addModuleScore and other commands
 Thy9 <- SCTransform(Thy9, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
-# Save SCTransformed Thy9 as an RDS
-saveRDS(Thy9, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_SCTransformed_All_Genes.rds")
+# Save SCTransformed Thy9 Seurat Object as a .RDS
+saveRDS(Thy9, "Data_in_Use/Processed_Outputs/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy9)
