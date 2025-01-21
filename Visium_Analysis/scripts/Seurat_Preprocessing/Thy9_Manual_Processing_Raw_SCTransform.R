@@ -84,7 +84,11 @@ saveRDS(Thy9, "Data_in_Use/Processed_Outputs/Thy9_ManualAlign_Processed/22-1003_
 # There are many discussions on whether return.only.var.genes should be set to TRUE/FALSE.
 # In the vignette from satijalab, they recommend FALSE for best performance. 
 # I need to do more reading to see how this affects addModuleScore and other commands
-Thy9 <- SCTransform(Thy9, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
+Thy9 <- SCTransform(Thy9, 
+                    vst.flavor = "v2",
+                    assay = "Spatial", 
+                    return.only.var.genes = FALSE, 
+                    verbose = FALSE)
 
 # Save SCTransformed Thy9 Seurat Object as a .RDS
 saveRDS(Thy9, "Data_in_Use/Processed_Outputs/Thy9_ManualAlign_Processed/22-1003_Thy9_ManualAlign_SCTransformed_All_Genes.rds")
