@@ -1,7 +1,13 @@
-# Author: Matthew A. Loberg
-# Date: September 15th, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+### Author: Matthew A. Loberg
+### Date: September 15th, 2022
+### Script: Thy12_Processing_Raw_SCTransform.R
+### Source Script Name: 22-0915_Thy12_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
+
+# Thy12
 
 #### Chapter 1: Loading Packages ####
 # Load required packages
@@ -15,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy12 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy12 data
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/8405-CP-0008_S11-41228_3D_Thy12' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy12' # Set directory to load from
 Thy12 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy12
 Thy12$orig.ident <- "Thy12"
 # Cleaning up
@@ -61,8 +67,8 @@ ggsave("outputs/Thy12_QC/22-0915_Thy12_Processing_Raw_SCTransform/22-0915_Raw_Co
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy12 as an RDS
-saveRDS(Thy12, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy12_Processed/22-0915_Thy12_Raw_PreProcessed.rds")
+# Save raw Thy12 Seurat Object as a .RDS
+saveRDS(Thy12, "Data_in_Use/Processed_Outputs/Thy12_Processed/22-0915_Thy12_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -73,8 +79,8 @@ saveRDS(Thy12, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy12_Processed/22-09
 # I need to do more reading to see how this affects addModuleScore and other commands
 Thy12 <- SCTransform(Thy12, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
 
-# Save SCTransformed Thy12 as an RDS
-saveRDS(Thy12, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy12_Processed/22-0915_Thy12_SCTransformed_All_Genes.rds")
+# Save SCTransformed Thy12 Seurat Object as a .RDS
+saveRDS(Thy12, "Data_in_Use/Processed_Outputs/Thy12_Processed/22-0915_Thy12_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy12)
