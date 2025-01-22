@@ -1,7 +1,13 @@
-# Author: Matthew A. Loberg
-# Date: September 5th, 2022
-# Purpose: New Visium sequencing data just obtained from Vantage
+### Author: Matthew A. Loberg
+### Date: September 5th, 2022
+### Script: Thy11_Processing_Raw_SCTransform.R
+### Source Script Name: 22-0905_Thy11_Processing_Raw_SCTransform.R
+
+### Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
+
+# Thy11
 
 #### Chapter 1: Loading Packages ####
 # Load required packages
@@ -15,7 +21,7 @@ library(tidyverse)
 #### Chapter 2: Reading in Thy11 and looking at raw count data by violin and SpatialFeaturePlot ####
 
 # Load in Thy11 data
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/8405-CP-0007_S18-27015_3C_Thy11' # Set directory to load from
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy11' # Set directory to load from
 Thy11 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy11
 Thy11$orig.ident <- "Thy11"
 # Cleaning up
@@ -61,8 +67,8 @@ ggsave("outputs/Thy11_QC/22-0905_Thy11_Processing_Raw_SCTransform/22-0905_Raw_Co
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy11 as an RDS
-saveRDS(Thy11, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy11_Processed/22-0905_Thy11_Raw_PreProcessed.rds")
+# Save raw Thy11 Seurat Object as a .RDS
+saveRDS(Thy11, "Data_in_Use/Processed_Outputs/Thy11_Processed/22-0905_Thy11_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -71,10 +77,14 @@ saveRDS(Thy11, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy11_Processed/22-09
 # There are many discussions on whether return.only.var.genes should be set to TRUE/FALSE.
 # In the vignette from satijalab, they recommend FALSE for best performance. 
 # I need to do more reading to see how this affects addModuleScore and other commands
-Thy11 <- SCTransform(Thy11, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE)
+Thy11 <- SCTransform(Thy11, 
+                     vst.flavor = "v2",
+                     assay = "Spatial", 
+                     return.only.var.genes = FALSE, 
+                     verbose = FALSE)
 
-# Save SCTransformed Thy11 as an RDS
-saveRDS(Thy11, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Thy11_Processed/22-0905_Thy11_SCTransformed_All_Genes.rds")
+# Save SCTransformed Thy11 Seurat Object as a .RDS
+saveRDS(Thy11, "Data_in_Use/Processed_Outputs/Thy11_Processed/22-0905_Thy11_SCTransformed_All_Genes.rds")
 
 # Cleaning up
 rm(Thy11)
