@@ -24,7 +24,7 @@ https://aacrjournals.org/cancerdiscovery/article/14/7/1324/746125/Senescence-Def
 Dinh et al.: Esophageal squamous cell carcinoma  
 https://www.nature.com/articles/s41467-021-27599-5
 
-Ma et al.: Pan-cancer
+Ma et al.: Pan-cancer  
 https://molecular-cancer.biomedcentral.com/articles/10.1186/s12943-023-01876-x
 
 Iesato et al.:  
