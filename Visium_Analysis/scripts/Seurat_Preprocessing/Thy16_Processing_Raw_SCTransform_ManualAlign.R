@@ -1,12 +1,18 @@
-# Author: Matthew A. Loberg
-# Date: November 21th, 2024
-# Purpose: New Visium sequencing data just obtained from Vantage
+### Author: Matthew A. Loberg
+### Date: November 21th, 2024
+### Script: Thy16_Processing_Raw_SCTransform_ManualAlign.R
+### Source Script Name: 24-1121_Thy16_Processing_Raw_SCTransform_ManualAlign.R
+
+# Goal: 
 # Here, I will read the data into R studio and begin basic processing of the data
+# I will save a seurat object as a .RDS, which I will use for future analysis
 
 # Thy16
 
 # 24-1121 Update
 # Re-running with manual align file from Lana Olson from 24-1120
+# The prior file was misaligned (tumor gene expression in unexpected places, normal thyroid gene expression in unexpected places)
+# The manual alignement from Lana Olson appears to have fixed this problem
 
 #### Chapter 1: Loading Packages ####
 # Load required packages
@@ -19,8 +25,8 @@ library(tidyverse)
 
 #### Chapter 2: Reading in Thy16 and looking at raw count data by violin and SpatialFeaturePlot ####
 
-# Load in Thy16 data
-data_dir <- 'Data_in_Use/August_2022_VANTAGE_Visium_Run/Raw_SpaceRanger_Outputs/Thy16_manAlign' # Set directory to load from
+# Load in Thy16 data from SpaceRanger outputs folder
+data_dir <- 'Data_in_Use/Raw_SpaceRanger_Outputs/Thy16_manAlign' # Set directory to load from
 Thy16 <- Load10X_Spatial(data.dir = data_dir, slice = "slice1") # Load Thy16
 Thy16$orig.ident <- "Thy16"
 # Cleaning up
@@ -66,8 +72,8 @@ ggsave("outputs/Thy16_QC/24-1121_Thy16_Processing_Raw_SCTransform/24-1121_Raw_Co
 # Cleaning up
 rm(plot1, plot2, test)
 
-# Save raw Thy16 as an RDS
-saveRDS(Thy16, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy16_Processed/24-1121_Thy16_Raw_PreProcessed.rds")
+# Save raw Thy16 Seurat Object as a .RDS
+saveRDS(Thy16, "Data_in_Use/Processed_Outputs/Thy16_Processed/24-1121_Thy16_Raw_PreProcessed.rds")
 
 #### Chapter 3: Data Transformation ####
 # I will perform data transformation with SCTransform
@@ -79,10 +85,14 @@ saveRDS(Thy16, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy
 # The scTransform is returning an error because one of my cells has no UMIs ... I need to filter out cells (spots) that have no UMIs before proceeding
 min(Thy16$nCount_Spatial) # Shows that there are spots with 0 counts
 Thy16 <- subset(Thy16, nCount_Spatial > 0) # Subset out only spots that have > 0 counts
-Thy16 <- SCTransform(Thy16, assay = "Spatial", return.only.var.genes = FALSE, verbose = FALSE) # Now I can perform SCTransform without error
+Thy16 <- SCTransform(Thy16, 
+                     vst.flavor = "v2",
+                     assay = "Spatial", 
+                     return.only.var.genes = FALSE, 
+                     verbose = FALSE) # Now I can perform SCTransform without error
 
-# Save SCTransformed Thy16 as an RDS
-saveRDS(Thy16, "Data_in_Use/August_2022_VANTAGE_Visium_Run/Processed_Outputs/Thy16_Processed/24-1121_Thy16_SCTransformed_All_Genes.rds")
+# Save SCTransformed Thy16 Seurat Object as a .RDS
+saveRDS(Thy16, "Data_in_Use/Processed_Outputs/Thy16_Processed/24-1121_Thy16_SCTransformed_All_Genes.rds")
 
 SpatialFeaturePlot(Thy16, features = c("FN1"), pt.size.factor = 1.6)
 SpatialFeaturePlot(Thy16, features = c("TG"), pt.size.factor = 1.7)
