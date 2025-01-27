@@ -6,6 +6,9 @@
 # I will use these samples to merge with all other thyroid scRNA samples + run FastMNN to build my atlas
 
 ##### Old script info from Pu script #####
+# This script is an ADAPTATION of 23-1127_Pu_etal_SCTransform_AnnData_Generate.R
+# Applied to Wang et al. samples. 
+
 # Creating SCTransformed Seurat Objects and AnnData objects for Pu et al.
 # I will use these to merge with other samples + run FastMNN
 
