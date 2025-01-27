@@ -45,6 +45,8 @@ source("function_scripts/23-1026_SingleR_Prediction_Function.R")
 
 # Read Directories in as a list
 # Read Directories
+# Each directory contains the following files: barcodes.tsv.gz; features.tsv.gz; matrix.mtx.gz
+# These files were downloaded directly from GEO (GSE184362) with NO additional pre-processing
 Pu_readdirs <- list("data_in_use/Pu_etal_2021_PTC_scRNA/GSE184362_RAW/GSM5585102_PTC01_T",
                     "data_in_use/Pu_etal_2021_PTC_scRNA/GSE184362_RAW/GSM5585103_PTC01_P",
                     "data_in_use/Pu_etal_2021_PTC_scRNA/GSE184362_RAW/GSM5585104_PTC02_T",
