@@ -78,7 +78,7 @@ for(i in 1:length(Lee_readdirs)){
 # Cleaning up
 rm(Lee_readdirs)
 
-# Explore Han_ATCs to make sure it is what I want - confirmed, commenting out for now
+# Explore Lee_SOs to make sure it is what I want - confirmed, commenting out for now
 #Lee_SOs[[1]]
 #Lee_SOs[[2]]$orig.ident
 #Lee_SOs[[3]]$orig.ident
