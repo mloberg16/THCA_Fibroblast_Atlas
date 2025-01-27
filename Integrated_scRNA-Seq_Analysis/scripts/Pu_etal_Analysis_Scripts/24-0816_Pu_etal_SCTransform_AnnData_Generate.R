@@ -56,7 +56,9 @@ source("function_scripts/24-0814_SingleR_Prediction_Function.R")
 
 # Read Directories in as a list
 # Read Directories
-# This time read for just PTC03_P, PTC05_RightLN, and PTC11_SC
+# Each directory contains the following files: barcodes.tsv.gz; features.tsv.gz; matrix.mtx.gz
+# These files were downloaded directly from GEO (GSE184362) with NO additional pre-processing
+# This time read for just PTC03_P, PTC05_RightLN, and PTC11_SC (samples with cells containing < 500 nFeature_RNA)
 Pu_readdirs <- list(#"data_in_use/Pu_etal_2021_PTC_scRNA/GSE184362_RAW/GSM5585102_PTC01_T",
                     #"data_in_use/Pu_etal_2021_PTC_scRNA/GSE184362_RAW/GSM5585103_PTC01_P",
                     #"data_in_use/Pu_etal_2021_PTC_scRNA/GSE184362_RAW/GSM5585104_PTC02_T",
