@@ -2,8 +2,8 @@ The AddFibroblastModuleScores function takes a Seurat Object as input and return
 
 This function has three iterations as additional gene sets were added:  
 - 24-0821_AddFibroblastModuleScores.R (original function)  
-- 24-1125_AddFibroblastModuleScores.R  
-- 24-1226_AddFibroblasTModuleScores.R  
+- 24-1125_AddFibroblastModuleScores.R (edited to add gene sets from Cords et al. and Hornburg et al.)  
+- 24-1226_AddFibroblasTModuleScores.R (edited to add gene sets from Belle et al., Dinh et al., and Ma et al.)
 
 **Fibroblast papers for public gene sets used to generate module scores:** 
 
