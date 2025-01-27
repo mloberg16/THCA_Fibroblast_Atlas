@@ -1,6 +1,7 @@
-# Author: Matthew Aaron Loberg
-# Date: August 16, 2024
-# Script: 24-0816_Lee_etal_2024_Normal_SCTransform_AnnData_Generate.R
+### Author: Matthew Aaron Loberg
+### Date: August 16, 2024
+### Script: 24-0816_Hong_etal_2024_Normal_SCTransform_AnnData_Generate.R
+### Source Script Name: 24-0816_Lee_etal_2024_Normal_SCTransform_AnnData_Generate.R
 
 #### INFORMATION on SCRIPT ####
 # Creating SCTransformed Seurat Objects and AnnData objects for Lee et al. 2024 (7 normal samples only - different from tumor samples)
@@ -8,15 +9,21 @@
 # GEO link for data download: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE182416
 # Note: It is unclear why this is a different GEO than the tumor samples. Unclear if this was previously published
 # Additionally, these samples are a mix of "Young" and "Old" but there is little additional info
-# I will use these to merge with other samples + run FastMNN (eventually after further exploration)
+# I will use these to merge with other samples + run FastMNN (eventually after further exploration)  
+
+# UPDATED PAPER INFORMATION: 
+# After further looking into this, I realized that these normal samples come from Hong et al. 
+# Paper link: https://academic.oup.com/endo/article/164/4/bqad029/7040488  
+# The GEO link above is correct (GSE182416)  
 
 # Information on objects from GEO:
 # Single-cell RNA-seq data were mapped, and counts of molecules per barcode were quantified using the 10x software package cellranger (version 3.0.2) and GRCh38 reference genome supplied by 10x Genomics.
 # To exclude low quality or doublets, we performed Scrublet and filtered cells with fewer than 200 genes or cells with 25% or higher mitochondrial proportion and obtained 54,726 cells from 7 normal thyroid samples.
 
-# Modifications: because they ran Scrublet, I will not be removing doublets; I will be changing the mitochondrial filter to 10%
+# Modifications: because they ran Scrublet, I will not be removing doublets; I will be changing the mitochondrial filter to 10%  
+# The lack of doublet removal is different from the pre-processing of the other 10X Genomics single-cell objects used for this integrated atlas.  
 
-#### HISTORY OF THIS SCRIPT STARTING WITH Pu et al. -> Han et al. -> Lee et al. ####
+#### HISTORY OF THIS SCRIPT STARTING WITH Pu et al. -> Han et al. -> Lee et al. -> Hong et al. ####
 # 23-1108 Update
 # NOT RUNNING SoupX
 # Seurat version 4 is REQUIRED for use of SeuratDisk
@@ -35,7 +42,7 @@
 # I am adapting the 24-0506 version for Han et al. 2024 to use for Lee et al. 2024
 
 # 24-0630 Update
-# I am adapting the 24-0625 version for Lee et al. 2024 tumor samples to use for Lee et al. 2024 Normal Samples
+# I am adapting the 24-0625 version for Lee et al. 2024 tumor samples to use for Lee et al. 2024 Normal Samples (Hong et al. normal samples)
 # Note: worked on the script 24-0630 - 24-0701
 
 # 24-0814 Update
@@ -78,7 +85,7 @@ source("function_scripts/24-0814_SingleR_Prediction_Function.R")
 # I will split these matrices into individual objects to save objects individually and perform individual analysis of objects
 
 ### Load meta data
-meta <- as.data.frame(readr::read_table("data_in_use/Lee_etal_2024_Normal_scRNA/RAW_DATA/GSE182416_Thyroid_normal_7samples_metadata.txt.gz"))
+meta <- as.data.frame(readr::read_table("data_in_use/Hong_etal_2024_Normal_scRNA/RAW_DATA/GSE182416_Thyroid_normal_7samples_metadata.txt.gz"))
 rownames(meta) <- meta$Index
 meta <- meta[,2:ncol(meta)]
 table(meta$orig.ident)
@@ -94,7 +101,7 @@ for(i in 1:length(meta_labels)){
 }
 
 ### Load raw data with all 7 objects in one matrix
-raw_data <- as.data.frame(readr::read_table("data_in_use/Lee_etal_2024_Normal_scRNA/RAW_DATA/GSE182416_Thyroid_normal_7samples_54726cells_raw_count.txt.gz"))
+raw_data <- as.data.frame(readr::read_table("data_in_use/Hong_etal_2024_Normal_scRNA/RAW_DATA/GSE182416_Thyroid_normal_7samples_54726cells_raw_count.txt.gz"))
 rownames(raw_data) <- raw_data$Index
 raw_data <- raw_data[,3:ncol(raw_data)]
 # This would normally be 2:ncol but somehow the first cell is filled in with the Index info as well; I also got rid of this in metadata
@@ -105,46 +112,46 @@ for(i in 1:length(meta_labels)){
 }
 
 ### Create a list of seurat objects with metadata merged
-Lee_Normal_SOs <- list()
+Hong_Normal_SOs <- list()
 for(i in 1:length(raw_data_split)){
-  Lee_Normal_SOs[[i]] <- CreateSeuratObject(counts = raw_data_split[[i]],
-                           project = "Lee_etal_Normal_2024",
+  Hong_Normal_SOs[[i]] <- CreateSeuratObject(counts = raw_data_split[[i]],
+                           project = "Hong_etal_Normal_2024",
                            min.cells = 5,
                            min.features = 200)
-  Lee_Normal_SOs[[i]] <- AddMetaData(Lee_Normal_SOs[[i]], meta_split[[i]])
-  Lee_Normal_SOs[[i]]$Paper <- "Lee24_Normal"
-  Lee_Normal_SOs[[i]]$Histology <- "Normal"
+  Hong_Normal_SOs[[i]] <- AddMetaData(Hong_Normal_SOs[[i]], meta_split[[i]])
+  Hong_Normal_SOs[[i]]$Paper <- "Hong24_Normal"
+  Hong_Normal_SOs[[i]]$Histology <- "Normal"
 }
 
 # Just checking some of the annotations here (printing them out to make sure they are I what I expect them to be)
-Lee_Normal_SOs[[1]]$orig.ident
-Lee_Normal_SOs[[1]]$celltype_global
-Lee_Normal_SOs[[1]]$Paper
-Lee_Normal_SOs[[1]]$Histology
+Hong_Normal_SOs[[1]]$orig.ident
+Hong_Normal_SOs[[1]]$celltype_global
+Hong_Normal_SOs[[1]]$Paper
+Hong_Normal_SOs[[1]]$Histology
 
 # Cleaning up raw data to save space
 rm(meta, meta_split, raw_data, raw_data_split, i, meta_labels)
 
-#### Doublet Detection - COMMENTING OUT - NOT RUNNING DOUBLET DETECTION ####
-# dir.create("outputs/Lee_etal_2024_Analysis_Outputs")
-# outputdir <- "outputs/Lee_etal_2024_Analysis_Outputs/24-0625_scDblFinder/"
+#### Doublet Detection - COMMENTING OUT - NOT RUNNING DOUBLET DETECTION due to prior Scrublet  doublet removal per GEO page for these samples ####
+# dir.create("outputs/Hong_etal_2024_Analysis_Outputs")
+# outputdir <- "outputs/Hong_etal_2024_Analysis_Outputs/24-0625_scDblFinder/"
 # dir.create(outputdir)
 # # Run doublet detection
-# for(i in 1:length(Lee_SOs)){
-#   Lee_SOs[[i]] <- Doublet_Detection(Lee_SOs[[i]], outputdir = paste0(outputdir, Lee_SOs[[i]]$orig.ident[1]))
+# for(i in 1:length(Hong_SOs)){
+#   Hong_SOs[[i]] <- Doublet_Detection(Hong_SOs[[i]], outputdir = paste0(outputdir, Hong_SOs[[i]]$orig.ident[1]))
 # }
 # rm(outputdir, i)
 #
 # # Statistics for doublets + subsetting
-# Lee_Doublet_Info <- list()
-# for(i in 1:length(Lee_SOs)){
-#   Lee_Doublet_Info[[i]] <- table(Lee_SOs[[i]]$scDblFinder.class)
-#   Lee_SOs[[i]] <- Lee_SOs[[i]] %>% subset(scDblFinder.class == "singlet")
-#   Lee_SOs[[i]]$scDblFinder.class <- NULL
+# Hong_Doublet_Info <- list()
+# for(i in 1:length(Hong_SOs)){
+#   Hong_Doublet_Info[[i]] <- table(Hong_SOs[[i]]$scDblFinder.class)
+#   Hong_SOs[[i]] <- Hong_SOs[[i]] %>% subset(scDblFinder.class == "singlet")
+#   Hong_SOs[[i]]$scDblFinder.class <- NULL
 # }
-# Lee_Doublet_Info
-# saveRDS(Lee_Doublet_Info, file = "data_in_use/Lee_etal_2024_scRNA/24-0625_Lee24_Doublet_Info.rds")
-# rm(Lee_Doublet_Info, i)
+# Hong_Doublet_Info
+# saveRDS(Hong_Doublet_Info, file = "data_in_use/Hong_etal_2024_scRNA/24-0625_Hong24_Doublet_Info.rds")
+# rm(Hong_Doublet_Info, i)
 
 #### COMMENTING OUT - NOT RUNNING SoupX ####
 #### SoupX Ambient RNA Detection ####
@@ -169,52 +176,52 @@ rm(meta, meta_split, raw_data, raw_data_split, i, meta_labels)
 
 #### Basic QC ####
 # QC plots + mitochondrial subsetting
-QC_OutputDir <- "outputs/Lee_etal_2024_Normal_Analysis_Outputs/24-0816_All_Sample_QC/"
+QC_OutputDir <- "outputs/Hong_etal_2024_Normal_Analysis_Outputs/24-0816_All_Sample_QC/"
 dir.create(QC_OutputDir)
-for(i in 1:length(Lee_Normal_SOs)){
-  Lee_Normal_SOs[[i]] <- Seurat_Basic_QC(Lee_Normal_SOs[[i]], outputdir = paste0(QC_OutputDir,Lee_Normal_SOs[[i]]$orig.ident[1]))
+for(i in 1:length(Hong_Normal_SOs)){
+  Hong_Normal_SOs[[i]] <- Seurat_Basic_QC(Hong_Normal_SOs[[i]], outputdir = paste0(QC_OutputDir,Hong_Normal_SOs[[i]]$orig.ident[1]))
 }
 rm(QC_OutputDir, i)
 
 #### Normalization with SCTransform ####
-# Run SCTransform for all Lee Normal SOs using vst.flavor = v2
+# Run SCTransform for all Hong Normal SOs using vst.flavor = v2
 # Returning more variable features than default (7000 vs 3000) - something to consider tweaking in future iterations
 # Returning ALL genes (not just variable genes) -> doing for purpose of integration later/have SCT values for all genes
-Lee_Normal_SOs <- lapply(X = Lee_Normal_SOs,
+Hong_Normal_SOs <- lapply(X = Hong_Normal_SOs,
                   FUN = SCTransform,
                   variable.features.n = 7000,
                   return.only.var.genes = FALSE,
                   vst.flavor = "v2")
 
-### Run SingleR on the Lee SOs Normal list
+### Run SingleR on the Hong SOs Normal list
 # Source: SingleR book - http://bioconductor.org/books/release/SingleRBook/
 # https://github.com/dviraran/SingleR/issues/115 - see here for adding SingleR labels back to Seurat object metadata
-savedir <- "data_in_use/Lee_etal_2024_Normal_scRNA/24-0816_SingleR_Predictions/" # Set savedir for the tables with prediction info
+savedir <- "data_in_use/Hong_etal_2024_Normal_scRNA/24-0816_SingleR_Predictions/" # Set savedir for the tables with prediction info
 dir.create(savedir)
-outputdir <- "outputs/Lee_etal_2024_Normal_Analysis_Outputs/24-0816_SingleR_UMAPs/" # set the outputdir for sample umaps
+outputdir <- "outputs/Hong_etal_2024_Normal_Analysis_Outputs/24-0816_SingleR_UMAPs/" # set the outputdir for sample umaps
 dir.create(outputdir)
-Lee_Normal_SOs <- SingleR_Predictions(SO_List = Lee_Normal_SOs, outputdir = outputdir, savedir = savedir)
+Hong_Normal_SOs <- SingleR_Predictions(SO_List = Hong_Normal_SOs, outputdir = outputdir, savedir = savedir)
 
 # The convert function for h5ad can be affected by the gene length of assays
 # Check to make sure that the gene length is the same between assays
-for(i in 1:length(Lee_Normal_SOs)){
-  print(length(rownames(GetAssayData(Lee_Normal_SOs[[i]], assay = "RNA", slot = "counts"))))
-  print(length(rownames(GetAssayData(Lee_Normal_SOs[[i]], assay = "RNA", slot = "data"))))
-  print(length(rownames(GetAssayData(Lee_Normal_SOs[[i]], assay = "SCT", slot = "counts"))))
-  print(length(rownames(GetAssayData(Lee_Normal_SOs[[i]], assay = "SCT", slot = "data"))))
-  print(length(rownames(GetAssayData(Lee_Normal_SOs[[i]], assay = "SCT", slot = "scale.data"))))
+for(i in 1:length(Hong_Normal_SOs)){
+  print(length(rownames(GetAssayData(Hong_Normal_SOs[[i]], assay = "RNA", slot = "counts"))))
+  print(length(rownames(GetAssayData(Hong_Normal_SOs[[i]], assay = "RNA", slot = "data"))))
+  print(length(rownames(GetAssayData(Hong_Normal_SOs[[i]], assay = "SCT", slot = "counts"))))
+  print(length(rownames(GetAssayData(Hong_Normal_SOs[[i]], assay = "SCT", slot = "data"))))
+  print(length(rownames(GetAssayData(Hong_Normal_SOs[[i]], assay = "SCT", slot = "scale.data"))))
 }
 
 # Now that we have confirmed that the above is all true, we can proceed with saving/converting the data to h5ad
 # I am going to save to the PC to save space in my OneDrive. I will format this the same way that the 2023_Integrated_scRNA-Seq_Aanalysis project is formatted
 
 # Save SCTransformed data for each of the Han 2024 ATCs
-savedir <- "data_in_use/Lee_etal_2024_Normal_scRNA/Processed_Data/Individual_Samples/"
+savedir <- "data_in_use/Hong_etal_2024_Normal_scRNA/Processed_Data/Individual_Samples/"
 dir.create(savedir)
-for(i in 1:length(Lee_Normal_SOs)){
-  savedir_temp <- paste0(savedir, Lee_Normal_SOs[[i]]$orig.ident[1])
+for(i in 1:length(Hong_Normal_SOs)){
+  savedir_temp <- paste0(savedir, Hong_Normal_SOs[[i]]$orig.ident[1])
   dir.create(savedir_temp)
-  SaveH5Seurat(Lee_Normal_SOs[[i]], filename = paste0(savedir_temp, "/24-0816_SCTransformed.h5Seurat"), overwrite = TRUE)
+  SaveH5Seurat(Hong_Normal_SOs[[i]], filename = paste0(savedir_temp, "/24-0816_SCTransformed.h5Seurat"), overwrite = TRUE)
   #Convert(paste0(savedir_temp, "/23-1108_SCTransformed.h5Seurat"), dest = "h5ad", overwrite = TRUE) # To save space, I will NOT be saving the AnnData object here ... can always come back and run in future
 }
 rm(list = ls())
