@@ -1,10 +1,13 @@
 ### Author: Matthew Aaron Loberg
-### Date: October 16, 2023
-### Script: 23-1016_Lu_etal_SCTransform_AnnData_Generate.R
-### Goal: Incorporate normal, PTC, and ATC scRNA-sequencing data from Lu et al. into seurat objects and save them as h5ad for use as AnnData in scanorama integration
+### Date: November 8, 2023
+### Script: 23-1108_Lu_etal_SCTransform_AnnData_Generate.R
+
+### Goal: Incorporate normal, PTC, and ATC scRNA-sequencing data from Lu et al. into seurat objects and save them as h5Seurat for future use and h5ad for use as AnnData objects
 
 # In brief:
-# Creating SCTransformed Seurat Objects and AnnData objects for LU et al.
+# Creating SCTransformed Seurat Objects and AnnData objects for Lu et al. normal (paratumors), PTCs, and ATCs
+
+### Adapted from original script: 23-1016_Lu_etal_SCTransform_AnnData_Generate.R
 
 #### 23-1031 Update ####
 # Today I am re-running this script but including the following: scDblFinder, SoupX, and SingleR annotations
