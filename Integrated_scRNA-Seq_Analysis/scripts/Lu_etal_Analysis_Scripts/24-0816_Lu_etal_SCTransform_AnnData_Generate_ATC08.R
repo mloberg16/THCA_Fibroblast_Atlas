@@ -4,7 +4,7 @@
 ### Goal: Incorporate normal, PTC, and ATC scRNA-sequencing data from Lu et al. into seurat objects and save them as h5ad for use as AnnData in scanorama integration
 
 # In brief:
-# Creating SCTransformed Seurat Objects and AnnData objects for LU et al.
+# Creating SCTransformed Seurat Objects and AnnData objects for Lu et al.
 
 #### 23-1031 Update ####
 # Today I am re-running this script but including the following: scDblFinder, SoupX, and SingleR annotations
@@ -16,10 +16,12 @@
 
 #### 24-0814 Update ####
 #### I am re-running for JUST ATC08 with updated QC requiring > 500 nCount_RNA
-# ALso using several updated source scripts purely for output directory management
+# Also using several updated source scripts purely for output directory management
+# ATC08 was the only object from Lu et al. that did NOT already meet the QC requirement of > 500 nCount_RNA
 
 #### 24-0816 Update ####
 # Running with new Basic QC that has nCount >= 500 (instead of > 500)
+# Was having issues with exclusion of some cells with exactly 500 nCount
 
 #### Load packages ####
 library(tidyverse)
