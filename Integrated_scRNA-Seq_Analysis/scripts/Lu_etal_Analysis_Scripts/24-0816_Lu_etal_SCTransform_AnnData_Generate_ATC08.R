@@ -6,6 +6,8 @@
 # In brief:
 # Creating SCTransformed Seurat Objects and AnnData objects for Lu et al.
 
+### Adapted from original script: 23-1016_Lu_etal_SCTransform_AnnData_Generate.R
+
 #### 23-1031 Update ####
 # Today I am re-running this script but including the following: scDblFinder, SoupX, and SingleR annotations
 # Modifying to include these and re-naming everything to 23-1031
