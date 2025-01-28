@@ -1,5 +1,6 @@
 ### Author: Matthew Loberg
-### Script: 22-1031_ReadData.R
+### Script: 22-1031_Luo_ReadData.R
+### Source Script Name: 22-1031_ReadData.R
 ### Goal: Read in scRNA-sequencing data from Luo at all and work on formatting it for analysis with Seurat and eventual integration
 
 ## Data organization
