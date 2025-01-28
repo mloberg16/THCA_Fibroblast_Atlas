@@ -1,6 +1,6 @@
-# Author: Matthew Aaron Loberg
-# Date: August 16, 2024
-# Script: 24-0816_Luo__etal_SCTransform_AnnData_Generate.R
+### Author: Matthew Aaron Loberg
+### Date: August 16, 2024
+### Script: 24-0816_Luo__etal_SCTransform_AnnData_Generate.R
 
 # Goal:
 # Creating SCTransformed Seurat Objects and AnnData objects for Luo et al.
@@ -23,6 +23,8 @@
 
 # 24-0816 Update
 # Running with new Basic QC function -> switch to nCount_RNA >= 500
+# For simplicity/consistency, I just went ahead and ran this script for all of Luo et al. samples
+# They are now all pre-processed identically through this script
 
 # Load packages
 library(tidyverse)
@@ -66,11 +68,16 @@ Luo_SOs <- list()
 for(i in 1:length(Luo_SO_readdirs)){
   Luo_SOs[[i]] <- readRDS(Luo_SO_readdirs[[i]])
 }
+
+### Metadata Updates ###
 # Look at each of these - note, they already have sample prepended to cell IDs, so that is ideal!
 # Will make sure orig.ident is what I want
 # Will also add a "Histology" column
 # Will also add a "Paper" column
 # Histology and paper columns are for future subsetting when integrated with all data later on
+# The paper also has mutation, sex, and Hashimotos metadata for each sample; I will add that here as well. 
+
+# Luo ATC WYF meta data
 Luo_SOs[[1]]
 Luo_SOs[[1]]$orig.ident
 Luo_SOs[[1]]$orig.ident <- "Luo_ATC_WYF"
@@ -85,6 +92,7 @@ Luo_SOs[[1]]$Age <- 78
 Luo_SOs[[1]]$Sex <- "F"
 Luo_SOs[[1]]$Concurrent_HT <- "YES"
 
+# Luo ATC MSQ meta data
 Luo_SOs[[2]]
 Luo_SOs[[2]]$orig.ident
 Luo_SOs[[2]]$orig.ident <- "Luo_ATC_MSQ"
@@ -99,6 +107,7 @@ Luo_SOs[[2]]$Age <- 78
 Luo_SOs[[2]]$Sex <- "F"
 Luo_SOs[[2]]$Concurrent_HT <- "YES"
 
+# Luo ATC LJ meta data
 Luo_SOs[[3]]
 Luo_SOs[[3]]$orig.ident
 Luo_SOs[[3]]$orig.ident <- "Luo_ATC_LJ"
@@ -113,6 +122,7 @@ Luo_SOs[[3]]$Age <- 69
 Luo_SOs[[3]]$Sex <- "M"
 Luo_SOs[[3]]$Concurrent_HT <- "NO"
 
+# Luo PTC WJL sample #1 meta data
 Luo_SOs[[4]]
 Luo_SOs[[4]]$orig.ident
 Luo_SOs[[4]]$orig.ident <- "Luo_PTC_WJL"
@@ -127,6 +137,7 @@ Luo_SOs[[4]]$Age <- 56
 Luo_SOs[[4]]$Sex <- "M"
 Luo_SOs[[4]]$Concurrent_HT <- "NO"
 
+# Luo PTC WJL sample #2 meta data
 Luo_SOs[[5]]
 Luo_SOs[[5]]$orig.ident
 Luo_SOs[[5]]$orig.ident <- "Luo_PTC_WJL"
@@ -141,6 +152,7 @@ Luo_SOs[[5]]$Age <- 56
 Luo_SOs[[5]]$Sex <- "M"
 Luo_SOs[[5]]$Concurrent_HT <- "NO"
 
+# Luo PTC XHY sample #1 meta data
 Luo_SOs[[6]]
 Luo_SOs[[6]]$orig.ident
 Luo_SOs[[6]]$orig.ident <- "Luo_PTC_XHY"
@@ -155,6 +167,7 @@ Luo_SOs[[6]]$Age <- 64
 Luo_SOs[[6]]$Sex <- "F"
 Luo_SOs[[6]]$Concurrent_HT <- "NO"
 
+# Luo PTC XHY sample #2 meta data
 Luo_SOs[[7]]
 Luo_SOs[[7]]$orig.ident
 Luo_SOs[[7]]$orig.ident <- "Luo_PTC_XHY"
@@ -169,6 +182,7 @@ Luo_SOs[[7]]$Age <- 64
 Luo_SOs[[7]]$Sex <- "F"
 Luo_SOs[[7]]$Concurrent_HT <- "NO"
 
+# Luo PTC XTZ meta data
 Luo_SOs[[8]]
 Luo_SOs[[8]]$orig.ident
 Luo_SOs[[8]]$orig.ident <- "Luo_PTC_XTZ"
@@ -183,6 +197,7 @@ Luo_SOs[[8]]$Age <- 66
 Luo_SOs[[8]]$Sex <- "F"
 Luo_SOs[[8]]$Concurrent_HT <- "YES"
 
+# Luo Nom XTZ meta data
 Luo_SOs[[9]]
 Luo_SOs[[9]]$orig.ident
 Luo_SOs[[9]]$orig.ident <- "Luo_NOM_XTZ"
