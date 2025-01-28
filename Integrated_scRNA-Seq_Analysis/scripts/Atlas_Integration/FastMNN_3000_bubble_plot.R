@@ -19,7 +19,6 @@ Merged_SO_FastMNN <- readRDS(file = "~/24-0819_Merged_SOs_scRNA_After_FastMNN_30
 ##### Feature Dot Plot #####
 Bubble_Plot_Broad_Markers <- c("TPO", "TG", "EPCAM", #Epithelial/PTC
                                "KRT19", "FN1", "CDKN2A", "CREB3L1",# PTC/ATC
-                               #"TNC", "KRT5", "CDKN2A", # ATC
                                "DCN", "COL1A1", # Fibroblast
                                "VWF", "PECAM1", # Endothelial
                                "NKG7", "CD3E", # NKT
