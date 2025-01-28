@@ -52,7 +52,10 @@ source("function_scripts/24-0814_SingleR_Prediction_Function.R")
 
 # Read Directories in as a list
 # Read Directories
-# Note, change: I am going to read WJL1 and WJL2 SEPARATE (same for XHY1 and XHY2). However, I am going to set th
+# Note, change: I am going to read WJL1 and WJL2 SEPARATE (same for XHY1 and XHY2). However, I am going to set them as the same "orig.ident" and give them different "Identifier" variables for the purpose of downstream integration
+# These read directories are to previously generated Seurat objects
+# See the following pre-processing scripts for how Seurat objects were generated: 
+# 22-1031_Luo_ReadData.R -> 22-1031_Luo_Seperate_Matrix.R -> 22-1101_Luo_Create_SOs.R
 Luo_SO_readdirs <- list("data_in_use/Luo_etal_2021_ATC_scRNA/ATC_WYF_ATC1_SO.RDS",
                         "data_in_use/Luo_etal_2021_ATC_scRNA/ATC_MSQ_ATC2_SO.RDS",
                         "data_in_use/Luo_etal_2021_ATC_scRNA/ATC_LJ_ATC3_SO.RDS",
