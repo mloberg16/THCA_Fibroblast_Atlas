@@ -1,9 +1,12 @@
-# Author: Matthew Aaron Loberg
-# Date: May 6, 2024
-# Script: 24-0506_Han_etal_2024_SCTransform_AnnData_Generate
+### Author: Matthew Aaron Loberg
+### Date: May 6, 2024
+### Script: 24-0506_Han_etal_2024_SCTransform_AnnData_Generate.R
 
 # Creating SCTransformed Seurat Objects and AnnData objects for Han et al.
 # I will use these to merge with other samples + run FastMNN
+# This script is adapted from 23-1127_Pu_etal_SCTransform_AnnData_Generate.R
+# Updates (below) through 23-1127 refer to the development of the Pu et al. script
+# Updates (below) after 23-1127 (e.g., 24-0506 update) refer to the development of this Han et al. script. 
 
 # 23-1108 Update
 # NOT RUNNING SoupX
@@ -18,6 +21,7 @@
 
 # 24-0506 Update
 # I am adapting the 23-1127 Pu et al. script to the new Han et al. 2024 ATC (BRAF mutant) samples
+# Paper link: https://insight.jci.org/articles/view/173712
 
 ### Load packages
 library(tidyverse)
@@ -209,44 +213,4 @@ for(i in 1:length(Han_ATCs)){
 }
 rm(list = ls())
 
-
-########## This is the stopping point for prepping for Integration; I am going to continue with some clustering analysis ##############
-
-### Run PCA + Elbow
-outputdir <- "outputs/Han_etal_2024_Analysis_Outputs/24-0506_Individual_Analysis"
-for(i in 1:length(Han_ATCs)){
-  Han_ATCs[[i]] <- RunPCA(Han_ATCs[[i]])
-  ggplot2::ggsave(file.path(outputdir, Han_ATCs[[i]]$orig.ident[1], "Elbow.png"),
-                  ElbowPlot(Han_ATCs[[i]], ndim = 50),
-                  width = 3, height = 3, dpi = 600)
-}
-
-# Run UMAP + Neighbors + Cluster (base ndims on umap)
-for(i in 1:length(Han_ATCs)){
-  Han_ATCs[[i]] <- RunUMAP(Han_ATCs[[i]], reduction = "pca", dims = 1:30)
-  Han_ATCs[[i]] <- FindNeighbors(Han_ATCs[[i]], reduction = "pca", dims = 1:30)
-  Han_ATCs[[i]] <- FindClusters(Han_ATCs[[i]], resolution = 0.8)
-  ggplot2::ggsave(file.path(outputdir, Han_ATCs[[i]]$orig.ident[1], "UMAP_0.8.png"),
-                  UMAPPlot(Han_ATCs[[i]]),
-                  width = 5, height = 5, dpi = 600)
-}
-
-library(RColorBrewer)
-# Feature_List Run #1
-Feature_List <- list("CD3E", "CD68", "FAP", "ACTA2", "VIM", "TNC", "MS4A1", "VWF", "SDC1", "KRT8", "FN1")
-# Feature_List Run #2
-Feature_List <- list("KRT5")
-Feature_List <- list("TG")
-# Note: KRT5 NOT found in ATC34 or ATC35
-Feature_List <- list("LUM", "SFRP2")
-Feature_List <- list("KRT8")
-for(i in 1:length(Han_ATCs)){
-  for(n in 1:length(Feature_List)){
-    ggsave(file.path(outputdir, Han_ATCs[[i]]$orig.ident[1], "Feature_Plots", paste0(Feature_List[[n]], "_Feature_Plot.png")),
-           FeaturePlot(Han_ATCs[[i]], features = c(Feature_List[[n]]), order = TRUE),
-           height = 5, width = 5, dpi = 600)
-    ggsave(file.path(outputdir, Han_ATCs[[i]]$orig.ident[1], "Feature_Plots", paste0(Feature_List[[n]], "_Feature_Plot_Gradient.png")),
-           FeaturePlot(Han_ATCs[[i]], features = c(Feature_List[[n]]), order = TRUE)  + scale_colour_gradientn(colours = rev(brewer.pal(n = 11, name = "RdBu"))),
-           height = 5, width = 5, dpi = 600)
-  }
-}
+sessionInfo()
