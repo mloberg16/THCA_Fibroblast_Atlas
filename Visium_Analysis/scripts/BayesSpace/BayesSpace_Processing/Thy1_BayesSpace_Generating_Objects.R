@@ -1,7 +1,7 @@
 ### Author: Matthew Aaron Loberg
 ### Date: 22-1206
 ### Script: Thy1_BayesSpace_Generating_Object.R
-### Source Script Name: 22-1206_Thy1_BayesSpace_Generating_Object.R
+### Source Script Name: 22-1206_Thy1_BayesSpace_Generating_Objects.R
 
 ### Goal:
 # Today I will generate SCE + Clustering for Thy1
