@@ -1,6 +1,6 @@
 ### Author: Matthew Aaron Loberg
 ### Date: 24-0524
-### Script: Peds05_BayesSpace_Generating_Object.R
+### Script: Peds05_BayesSpace_Generating_Objects.R
 ### Source Script Name: 24-0524_Peds05_BayesSpace_Generating_Object.R
 
 ### Goal:
