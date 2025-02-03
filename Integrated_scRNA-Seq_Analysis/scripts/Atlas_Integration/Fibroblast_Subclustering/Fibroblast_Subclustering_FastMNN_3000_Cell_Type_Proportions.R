@@ -1,7 +1,7 @@
 ### Author: Matthew Aaron Loberg
 ### Date: November 28, 2024
 ### Script: Fibroblast_Subclustering_FastMNN_3000_Cell_Type_Proportions.R
-### Source Script Name: 24-1128_Fibroblast_Subclustering_FastMNN_3000.R
+### Source Script Name: 24-1128_Fibroblast_Subclustering_FastMNN_3000_Cell_Type_Proportions.R
 
 ##### Goal: #####
 # Make the following plots for the fibroblast subclustering object:
