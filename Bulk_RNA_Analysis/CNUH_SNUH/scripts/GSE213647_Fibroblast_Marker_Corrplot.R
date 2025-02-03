@@ -15,6 +15,7 @@
 
 ##### Load packages #####
 library(tidyverse)
+library(corrplot)
 
 ##### Load TPM data #####
 # read in file + format with genes as columns, including a GEO_ID column as well for sample identification
