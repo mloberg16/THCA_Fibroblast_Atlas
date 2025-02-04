@@ -65,4 +65,36 @@ Link to paper GitHub: https://github.com/shenglei1988/scRNAseq-bilateral-PTC
 ### Visium Data
 
 Will be made available on the Human Tumor Atlas Netowrk (HTAN):  
-https://humantumoratlas.org/
+https://humantumoratlas.org/  
+
+-----------------------------------------------------
+
+### Bulk RNA-Sequencing Data  
+
+**TCGA Data Set:**  
+
+Link to paper: https://www.cell.com/cell/fulltext/S0092-8674%2814%2901238-0  
+Available for download at cBioPortal: https://www.cbioportal.org/study/summary?id=thca_tcga_pub  
+
+------------------------------------------------------
+
+**Lee et al. 2024 *Nature Communications* data set:**  
+
+Link to paper: https://www.nature.com/articles/s41467-024-45366-0  
+Link to GEO page for bulk RNA-sequencing data: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE213647
+
+------------------------------------------------------
+
+**VUMC/UW Cohort from Xu and Loberg et al. 2023 *Cell Genomics* data set:**  
+
+Link to paper: https://www.cell.com/cell-genomics/fulltext/S2666-979X(23)00223-9
+Info on access restrictions: There are restrictions to the availability of patient clinical and sequencing data. This is a retrospective cohort, and it is not possible to consent these patients with historic samples, particularly those with highly aggressive and rapidly lethal disease. As such, the IRB has requested that we do not publicly share individual-level sequencing data from each patient. The data is securely stored within a Vanderbilt patient data system. Aggregate-level data reported in this paper will be shared by the lead contact (Dr. Vivian Weiss) upon request. Individual-level data is only available through collaboration following approval of the lead contact and The Vanderbilt University Medical Center IRB. If the lead contact should leave the institution, collaboration requests should be directed to the Pathology Department Chair (Dr. Alice Coogan, alice.coogan@vumc.org).  
+Links to analysis from *Cell Genomics* paper:  
+https://github.com/xgj797/Molecular-Signature-Incorporating-Immune-Microenvironment-Enhances-Thyroid-Cancer-Outcome-Prediction  
+https://doi.org/10.5281/zenodo.8229499  
+
+**MD Anderson Bulk RNA-Sequencing data set:**
+
+Will be made available upon publication. 
+
+
