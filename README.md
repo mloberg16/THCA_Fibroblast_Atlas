@@ -40,7 +40,7 @@ Link to GEO webpage for thyroid NORMAL samples: https://www.ncbi.nlm.nih.gov/geo
 
 -----------------------------------------------------
 
-**Hong et al. 2024 *Endocrinology* data set:**  
+**Hong et al. 2023 *Endocrinology* data set:**  
 
 Link to paper: 
 https://academic.oup.com/endo/article/164/4/bqad029/7040488  
