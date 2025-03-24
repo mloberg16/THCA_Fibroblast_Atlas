@@ -2,6 +2,11 @@
 ### November 11, 2024
 ### Script: 24-1111_MiloR_Fibroblast_by_Histology.R
 
+##### GOAL: #####
+# Run differential abundance testing using Milo
+# Will compare ATC vs PTC; ATC vs paratumor/normal; PTC vs paratumor/normal
+# Interested in how epithelial populations change (thyrocyte, PTC, ATC) and how stromal populations change
+
 ##### Info: #####
 # This is adapted from 24-0321 scripts: "24-0321_MiloR_Attempt_1.R"
 # That was my first attempt at MiloR
