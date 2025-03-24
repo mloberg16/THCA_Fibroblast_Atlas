@@ -1,6 +1,6 @@
 ### Matthew Loberg
-### October 18, 2024
-### Script: 24-1018_MiloR_Fibroblast_by_Histology.R
+### November 11, 2024
+### Script: 24-1111_MiloR_Fibroblast_by_Histology.R
 
 ##### Info: #####
 # This is adapted from 24-0321 scripts: "24-0321_MiloR_Attempt_1.R"
@@ -123,7 +123,8 @@ plotDAbeeswarm(da_results_modified_thyroid, group.by = "Broad_Labels_CAFs_Includ
 
 # Save the plot
 savedir = "outputs/24-0819_Atlas_Integration/FastMNN_3000/MiloPlots"
-trace(plotDAbeeswarm, edit = TRUE) # edit colors here in scale_color_gradient2 (low and high colors)
+# trace(plotDAbeeswarm, edit = TRUE) # edit colors here in scale_color_gradient2 (low and high colors)
+# I have the above line of code commented out; can run it if plot color change is desired
 ggsave(file.path(savedir, "24-1111_Milo_Thyroid_DAbeeswarm_ATCvsPTC.png"),
        plotDAbeeswarm(da_results_modified_thyroid, group.by = "Broad_Labels_CAFs_Included") +
          theme(
@@ -132,7 +133,7 @@ ggsave(file.path(savedir, "24-1111_Milo_Thyroid_DAbeeswarm_ATCvsPTC.png"),
            axis.text.y = element_text(size = 15)),
        height = 5, width = 10, dpi = 600)
 
-# Option to saveRDS here; 24-1015 NOT doing this
+# Option to saveRDS here; 24-1015 update NOT doing this
 #saveRDS(da_results, file = "data_in_use/Integrated_Data/24-0321_ATC_PTC_da_results.RDS")
 #saveRDS(da_results_modified, file = "data_in_use/Integrated_Data/24-0321_ATC_PTC_da_results_modified.RDS")
 
@@ -141,7 +142,7 @@ ggsave(file.path(savedir, "24-1111_Milo_Thyroid_DAbeeswarm_ATCvsPTC.png"),
 # Subset down to just fibroblast groups
 da_results_modified_fibroblasts <- da_results %>% subset(Broad_Labels_CAFs_Included == "myCAF" |
                                                            Broad_Labels_CAFs_Included == "iCAF" |
-                                                           #Broad_Labels_CAFs_Included == "iCAF2" |
+                                                           #Broad_Labels_CAFs_Included == "iCAF2" | # Not including iCAF2
                                                            Broad_Labels_CAFs_Included == "iPVCAF" |
                                                            Broad_Labels_CAFs_Included == "dPVCAF" |
                                                            Broad_Labels_CAFs_Included == "APOE+_CAF")
@@ -150,7 +151,7 @@ da_results_modified_fibroblasts <- da_results %>% subset(Broad_Labels_CAFs_Inclu
 levels(da_results_modified_fibroblasts$Broad_Labels_CAFs_Included) # No levels - must create levels
 # make into a factor w/ levels
 da_results_modified_fibroblasts$Broad_Labels_CAFs_Included <- factor(da_results_modified_fibroblasts$Broad_Labels_CAFs_Included,
-                                                                     levels = c(#"iCAF2",
+                                                                     levels = c(#"iCAF2", # Not including iCAF2
                                                                                 "iCAF",
                                                                                 "myCAF",
                                                                                 "APOE+_CAF",
@@ -200,7 +201,8 @@ ggplot(da_results, aes(Broad_Labels_CAFs_Included_fraction)) + geom_histogram(bi
 da_results$Broad_Labels_CAFs_Included <- ifelse(da_results$Broad_Labels_CAFs_Included_fraction < 0.7, "Mixed", da_results$Broad_Labels_CAFs_Included)
 
 # Test plot to see what it looks like WITHOUT modification
-trace(plotDAbeeswarm, edit = TRUE) # adjust colors as desired within scale_gradient2
+# trace(plotDAbeeswarm, edit = TRUE) # adjust colors as desired within scale_gradient2
+# I have the above line of code commented out; can run it if plot color change is desired
 plotDAbeeswarm(da_results, group.by = "Broad_Labels_CAFs_Included")
 
 ##### MODIFY FOR Thyrocyte/Tumor populations #####
@@ -300,7 +302,8 @@ ggplot(da_results, aes(Broad_Labels_CAFs_Included_fraction)) + geom_histogram(bi
 da_results$Broad_Labels_CAFs_Included <- ifelse(da_results$Broad_Labels_CAFs_Included_fraction < 0.7, "Mixed", da_results$Broad_Labels_CAFs_Included)
 
 # Test plot to see what it looks like WITHOUT modification
-trace(plotDAbeeswarm, edit = TRUE)
+# trace(plotDAbeeswarm, edit = TRUE)
+# I have the above line of code commented out; can run it if plot color change is desired
 plotDAbeeswarm(da_results, group.by = "Broad_Labels_CAFs_Included")
 
 ##### MODIFY FOR Thyrocyte/Tumor populations #####
